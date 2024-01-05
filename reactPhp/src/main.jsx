@@ -1,12 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Form } from './Form.jsx'
-import { Lista } from './Lista.jsx'
 import "./estilos/index.css"
+import {App} from './App.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Form />
-    <Lista />
+    <App/>
   </React.StrictMode>,
 )

@@ -1,24 +1,34 @@
-import axios from "axios"
-import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import './estilos/App.css'
 
-export const Lista = () => {
-
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        // Obtener datos al cargar el componente
-        axios.get('http://localhost/api/api.php')
-          .then(response => setData(response.data))
-          .catch(error => console.error('Error fetching data:', error));
-      }, []);
+export const Lista = ({ data, editar, borrar }) => {
 
 return (
     <ul>
-        {data.map(item => (
-            <li key={item.id}>
+        <div>
+           {data.map(item => (
+            <li key={item.id + 1}>
                 {item.nombre}
+                <div>
+                    <button onClick={() => {
+                    const updatedName = prompt('Editar nombre:', item.nombre);
+                    if (updatedName !== null) {
+                        editar(item.id, updatedName);
+                    }
+                    }}>Editar</button>
+                <button onClick={()=> {
+                    borrar(item.id, item.nombre)
+                }}>Borrar</button>
+                </div>
             </li>
-        ))}
-      </ul>
+        ))} 
+        </div>
+    </ul>
 );
 }
+
+Lista.propTypes = {
+    data: PropTypes.array,
+    editar: PropTypes.func,
+    borrar: PropTypes.func,
+};
